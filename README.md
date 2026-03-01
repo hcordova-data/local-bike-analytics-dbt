@@ -1,12 +1,12 @@
 # local-bike-analytics-dbt
 
-Modern Data Stack implementation for 'Local Bike' shop, featuring automated data testing, and documented SQL models. Final project for DataBird Analytics Engineering Bootcamp.
+Modern Data Stack implementation for **Local Bike**, a bike shop aiming to become a fully data-driven company and consolidate its position as a leader in sustainable mobility.
 
 ---
 
 ## Project Purpose
 
-The goal of this project was to move Local Bike from fragmented raw data to a **Single Source of Truth**. By transforming raw operational data into a clean analytical layer, the business can now track performance across three main pillars: **Sales Efficiency**, **Staff Hierarchy**, and **Geographic Distribution**.
+Local Bike needed to move from fragmented raw data to a clean analytical layer, enabling the operations team to **optimize sales and maximize revenue** through data insights. The project covers three main analysis pillars: **Sales Efficiency**, **Staff Hierarchy**, and **Geographic Distribution**.
 
 ---
 
@@ -36,9 +36,19 @@ Built as **Star Schema** components, ready for BI consumption:
 
 ---
 
-## Dashboard Visuals
+## Power BI Data Model
 
-![Dashboard](images/visuals1.png)
+![Power BI Model](images/pbi_model.png)
+
+---
+
+## Dashboard & KPIs
+
+![KPIs](images/kpi.png)
+
+![Dashboard 1](images/visuals1.png)
+
+![Dashboard 2](images/visuals2.png)
 
 ---
 
@@ -59,7 +69,3 @@ A robust testing suite was implemented to ensure trust in the data:
 | BigQuery | Data Warehouse |
 | Power BI | Data Visualization |
 | GitHub | Version Control |
-
----
-
-*Final project — DataBird Analytics Engineering Bootcamp*
