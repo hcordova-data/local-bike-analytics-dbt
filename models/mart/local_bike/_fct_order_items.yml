@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: fct_order_items
+    description: >
+      Granular fact table at the Order-Item level. This model calculates atomic metrics
+      like net revenue per item and identifies multi-product deals. It follows the
+      'Multi-Product' rule where one order_id can have multiple rows based on unique item_ids.
+    columns:
+      - name: order_item_key
+        description: "Primary key: Concatenation of order_id and item_id."
+        tests:
+          - unique
+          - not_null
+      - name: item_net_revenue
+        description: "Calculated revenue: (quantity * list_price) * (1 - discount), rounded to 2 decimals."
+      - name: items_in_this_order
+        description: "Window function count of all items associated with the parent order_id."
+      - name: is_item_delayed
+        description: "Binary flag (1/0). Set to 1 if shipped_date is after required_date."
+      - name: customer_at_order_type
+        description: "Identifies if the customer was 'New' or 'Repeat' at the moment this specific order was placed."
