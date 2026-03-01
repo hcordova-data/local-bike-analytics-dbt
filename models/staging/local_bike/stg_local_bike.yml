@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_local_bike__orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4]
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: stg_local_bike__order_items
+    columns:
+      - name: order_id
+        tests:
+          - not_null

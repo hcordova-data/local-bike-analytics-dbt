@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: >
+      Final aggregated table for order-level performance. 
+      This is the primary source for Revenue, Fulfillment, and Customer Loyalty KPIs.
+    columns:
+      - name: order_id
+        description: "Primary Key. Unique identifier for each customer transaction."
+        tests:
+          - unique
+          - not_null
+
+      - name: total_order_revenue
+        description: "Total revenue for the order after all discounts."
+        tests:
+          - not_null
+          # Business Logic: Revenue should be within a realistic range
+          - dbt_utils.expression_is_true:
+              expression: "total_order_revenue > 0 and total_order_revenue < 50000"
+
+      - name: is_order_delayed
+        description: "Binary flag: 1 if the order was shipped after the required date."
+        tests:
+          - accepted_values:
+              values: [0, 1]
+
+      - name: customer_type
+        description: "Segmenting customers into 'New' or 'Repeat' based on their order history."
+        tests:
+          - accepted_values:
+              values: ['New', 'Repeat']
+
+  - name: dim_products
+    description: "SCD (Slowly Changing Dimension) style table for product details."
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: list_price
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "list_price >= 0"
+
+  - name: fct_stocks
+    description: "Snapshot of current inventory levels per store and product."
+    columns:
+      - name: quantity
+        description: "Physical stock on hand."
+        tests:
+          - not_null
+          # An AE's favorite test: Stock cannot be negative in the real world
+          - dbt_utils.expression_is_true:
+              expression: "quantity >= 0"
