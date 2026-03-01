@@ -10,7 +10,8 @@ models:
       - name: order_status
         tests:
           - accepted_values:
-              values: [1, 2, 3, 4]
+              arguments:
+                values: [1, 2, 3, 4]
       - name: customer_id
         tests:
           - not_null
