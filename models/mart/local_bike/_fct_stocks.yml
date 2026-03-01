@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: fct_stocks
+    description: >
+      Inventory fact table providing status for stock levels. Includes
+      distribution intelligence to identify redistribution opportunities between stores.
+    columns:
+      - name: inventory_status_label
+        description: "Operational status: Out of Stock (0), Critical (<=5), Healthy (<=20), or Overstocked (>20)."
+      - name: pct_of_total_inventory_share
+        description: "The percentage of a product's global stock that is located at this specific store."
+      - name: pct_of_store_total_volume
+        description: "The percentage of a store's total physical units represented by this specific product."

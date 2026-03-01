@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: >
+      Header-level fact table providing a single row per order. It uses window function
+      aggregations to roll up quantities and revenue from the item level.
+    columns:
+      - name: order_id
+        description: "Primary key for the order header."
+        tests:
+          - unique
+          - not_null
+      - name: total_order_revenue
+        description: "Sum of all item net revenues for this specific order."
+      - name: total_items_quantity
+        description: "Total count of physical units in the order."
+      - name: is_order_delayed
+        description: "Binary flag (1/0). Set to 1 if ANY single item in the order was shipped late (Max delay logic)."
+      - name: customer_type
+        description: "Current loyalty status of the customer based on their first order date."

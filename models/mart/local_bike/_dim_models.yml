@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Master list of customers with contact details and segmentation."
+
+  - name: dim_products
+    description: "Product catalog including brand, category, and model year details."
+
+  - name: dim_stores
+    description: "Physical retail locations including city and state for regional analysis."
+
+  - name: dim_staff
+    description: "Employee records and reporting structure for sales performance tracking."
+
+  - name: dim_calendar
+    description: "Standard date dimension used to support time-series trends (Year, Quarter, Month)."
