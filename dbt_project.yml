@@ -39,4 +39,3 @@ models:
       +materialized: table
       local_bike:
         +schema: local_bike
-      # Add other mart subfolders here as you create them
