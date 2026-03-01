@@ -1,0 +1,12 @@
+# --- dbt & BigQuery Security ---
+target/
+dbt_packages/
+logs/
+profiles.yml
+*.json
+.env
+
+# --- System & IDE Cleanup ---
+.DS_Store
+.vscode/
+.idea/
