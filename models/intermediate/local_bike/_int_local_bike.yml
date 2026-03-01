@@ -7,17 +7,21 @@ models:
       customers, and stores. It serves as the single source of truth for all metric calculations 
       used in the Marts.
     
-    # --- MODEL LEVEL TESTS (Complex Business Logic) ---
+# --- MODEL LEVEL TESTS (Complex Business Logic) ---
     tests:
       # 1. Logical Sequence: You can't ship a bike before it's ordered.
       - dbt_utils.expression_is_true:
           name: check_shipping_logic
-          expression: "shipped_date >= order_date or shipped_date is null"
+          config:
+            where: "shipped_date is not null"
+          arguments:
+            expression: "shipped_date >= order_date"
       
       # 2. Revenue Guardrail: Discounts should never be more than 100%.
       - dbt_utils.expression_is_true:
           name: check_discount_range
-          expression: "discount >= 0 and discount <= 1"
+          arguments:
+            expression: "discount >= 0 and discount <= 1"
 
     columns:
       # --- KEYS & REFERENTIAL INTEGRITY ---
@@ -26,23 +30,26 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_local_bike__orders')
-              field: order_id
+              arguments:
+                to: ref('stg_local_bike__orders')
+                field: order_id
 
       - name: product_id
         description: "The product identifier. Must exist in the product catalog."
         tests:
           - not_null
           - relationships:
-              to: ref('stg_local_bike__products')
-              field: product_id
+              arguments:
+                  to: ref('stg_local_bike__products')
+                  field: product_id
 
       # --- CALCULATED METRICS ---
       - name: quantity
         description: "Number of units sold. Must be a positive integer."
         tests:
           - dbt_utils.expression_is_true:
-              expression: "quantity > 0"
+              arguments:
+                expression: "quantity > 0"
 
       - name: list_price
         description: "The MSRP at the time of purchase."
